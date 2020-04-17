@@ -1,10 +1,10 @@
 # Makefile
 CXX_FLAG = --std=c++11 -g
 
-all: main
+all: prog1
 
-main: main.o
-	clang++ $(CXX_FLAG) main.cpp BST.cpp HashTable.cpp -o main
+prog1: main.o
+	clang++ $(CXX_FLAG) main.cpp BST.cpp HashTable.cpp -o prog1
 
 clean:
-	rm -f main *.o
+	rm -f prog1 *.o
