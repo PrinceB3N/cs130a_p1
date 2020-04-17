@@ -1,29 +1,33 @@
+#ifndef BST_H_
+#define BST_H_
+#include <string>
 class BST {
 	class Node {
 		public:
-		string data;
+		std::string data;
 		int count;
 		Node* left;
 		Node* right;
 		Node* parent;
-		Node(string data);
-		Node(string data, Node* parent);
+		Node(std::string data);
+		Node(std::string data, Node* parent);
 	};
 private:
 	Node* root;
 public:
 	BST();
 	~BST();
-	string search(string word);
-	string insert(string word);
-	string del(string word);
-	string range_search(string start, string end);
+	std::string search(std::string word);
+	std::string insert(std::string word);
+	std::string del(std::string word);
+	std::string range_search(std::string start, std::string end);
 private:
-	string range_searchHelper(Node* node, string start, string end);
+	std::string range_searchHelper(Node* node, std::string start, std::string end);
 	void destructHelper(Node* to_del);
-	Node* get(string word);
+	Node* get(std::string word);
 	Node* min(Node* node);
 	Node* max(Node* node);
 	Node* successor(Node* tmp);
 	Node* predecessor(Node* tmp);
 };
+#endif

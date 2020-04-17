@@ -1,19 +1,26 @@
+#ifndef HASHTABLE_H_
+#define HASHTABLE_H_
+
+#include <string>
+#include <list>
+#include <vector>
 class HashTable {
 	class Entry {
 		public:
-		string data;
+		std::string data;
 		int count;
-		Entry(string data);
+		Entry(std::string data);
 	};
-	vector<list<Entry*>>* entries;
+	std::vector<std::list<Entry*>>* entries;
 	int size;
 public:
 	HashTable(int size);
 	~HashTable();
-	string search(string word);
-	string insert(string word);
-	string del(string word);
-	list<string>* range_search(string start, string end);
-	int hash(string word);
-	void sorted_insert(list<string>* append, string word);
+	std::string search(std::string word);
+	std::string insert(std::string word);
+	std::string del(std::string word);
+	std::list<std::string>* range_search(std::string start, std::string end);
+	int hash(std::string word);
+	void sorted_insert(std::list<std::string>* append, std::string word);
 };
+#endif

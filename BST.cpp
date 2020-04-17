@@ -1,3 +1,6 @@
+#include <string>
+#include "BST.h"
+using namespace std;
 class BST {
 	class Node {
 		public:

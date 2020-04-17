@@ -1,7 +1,7 @@
 #include <string>
 #include <list> 
 #include <vector>
-#include "CMakeProject1.h"
+#include "HashTable.h"
 
 using namespace std;
 class HashTable {
