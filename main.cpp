@@ -14,7 +14,7 @@ void fill_BST_HashTable(BST* bst, HashTable* table, string filename){
 		string tmp;
 		while (getline(file, tmp)) { 
 			bst->insert(tmp);
-			table->insert(table);
+			table->insert(tmp);
 		}
 		file.close(); 
 	}
@@ -31,9 +31,9 @@ void op_delete(BST* bst, HashTable* table, string word){
 	cout<<bst->del(word)<<endl;
 	cout<<table->del(word)<<endl;
 }
-void op_range_search(BST* bst, HashTable* table, string word){
-	cout<<bst->range_search(word)<<endl;
-	cout<<table->range_search(word)<<endl;
+void op_range_search(BST* bst, HashTable* table, string start, string end){
+	cout<<bst->range_search(start,end)<<endl;
+	cout<<table->range_search(start,end)<<endl;
 }
 vector<string> split(const string& commands, char delimiter){
 	vector<string> tokens;
@@ -44,11 +44,11 @@ vector<string> split(const string& commands, char delimiter){
    	}
    	return tokens;
 }
-void handle_commands(char* commands){
+void handle_commands(BST* bst, HashTable* table, char* commands){
 	string str(commands);
 	vector<string> result=split(str, ',');
 	for(vector<string>::iterator i = result.begin(); i !=result.end();i++){
-		vector<string> tmp = split((*i)," ");
+		vector<string> tmp = split((*i),' ');
 		string op = tmp.at(0);
 		string word = tmp.at(1);
 		if(op=="search")
@@ -58,15 +58,14 @@ void handle_commands(char* commands){
 		else if(op=="delete")
 			op_delete(bst,table,word);
 		else if(op=="range")
-			op_range_search(bst,table,tmp.at(2));
+			op_range_search(bst,table,tmp.at(2),tmp.at(4));
 	}
-
-    return result;
+}
 int main(int argc, char** argv){
 	BST* bst = new BST();
-	HashTable* table = new HashTable(100);
+	HashTable* table = new HashTable(10000);
 	fill_BST_HashTable(bst, table, "PA1_dataset.txt");
-	handle_commands(argv[1]);
+	handle_commands(bst, table, argv[1]);
 	
 	return 0;
 }
