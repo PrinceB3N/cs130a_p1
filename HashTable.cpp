@@ -4,7 +4,7 @@
 #include "HashTable.h"
 
 using namespace std;
-HashTable::Entry::Entry(string data) {
+Entry::Entry(string data) {
 	this->data = data;
 	this->count = 1;
 }
@@ -73,12 +73,12 @@ int HashTable::hash(string word) {
 	return (31*(word.front() + word.back())) % size;
 }
 void HashTable::sorted_insert(list<string>* append, string word) {
-	if (append->empty) {
+	if (append->empty()) {
 		append->push_front(word);
 		return;
 	}
 	for (list<string>::iterator a = append->begin(); a != append->end(); a++) {
-		if (a->data > word) {
+		if ((*a) > word) {
 			if (a == append->begin()) {
 				append->push_front(word);
 				return;
@@ -88,7 +88,7 @@ void HashTable::sorted_insert(list<string>* append, string word) {
 				return;
 			}
 		}
-		else if (a->data == word)	//same word, don't add
+		else if ((*a) == word)	//same word, don't add
 			return;
 	}
 	append->push_back(word);	//Either empty list or word is greatest

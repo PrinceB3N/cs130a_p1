@@ -4,13 +4,14 @@
 #include <string>
 #include <list>
 #include <vector>
-class HashTable {
-	class Entry {
-		public:
-		std::string data;
-		int count;
-		Entry(std::string data);
-	};
+
+class Entry {
+	public:
+	std::string data;
+	int count;
+	Entry(std::string data);
+};
+class HashTable{
 	std::vector<std::list<Entry*>>* entries;
 	int size;
 public:

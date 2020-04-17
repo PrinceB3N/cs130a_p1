@@ -1,17 +1,18 @@
 #ifndef BST_H_
 #define BST_H_
 #include <string>
-class BST {
-	class Node {
-		public:
-		std::string data;
-		int count;
-		Node* left;
-		Node* right;
-		Node* parent;
-		Node(std::string data);
-		Node(std::string data, Node* parent);
+
+class Node {
+public:
+	std::string data;
+	int count;
+	Node* left;
+	Node* right;
+	Node* parent;
+	Node(std::string data);
+	Node(std::string data, Node* parent);
 	};
+class BST{
 private:
 	Node* root;
 public:

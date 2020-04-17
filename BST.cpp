@@ -1,14 +1,14 @@
 #include <string>
 #include "BST.h"
 using namespace std;
-BST::Node::Node(string data) {
-		this->data = data;
-		this->count = 1;
-		this->left = NULL;
-		this->right = NULL;
-		this->parent = NULL;
+Node::Node(string data) {
+	this->data = data;
+	this->count = 1;
+	this->left = NULL;
+	this->right = NULL;
+	this->parent = NULL;
 	}
-BST::Node::Node(string data, Node* parent) {
+Node::Node(string data, Node* parent) {
 	this->data = data;
 	this->count = 1;
 	this->left = NULL;
