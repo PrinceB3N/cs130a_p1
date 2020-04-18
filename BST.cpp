@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "BST.h"
 using namespace std;
 Node::Node(string data) {
@@ -139,14 +140,13 @@ void BST::destructHelper(Node* to_del) {
 Node* BST::get(string word) {
 	Node* tmp = this->root;
 	while (tmp != NULL) {
-		if (tmp->data > word) {
+		if(tmp->data == word)
+			return tmp;
+		else if (tmp->data > word) {
 			tmp = tmp->left;
 		}
 		else if (tmp->data < word) {
 			tmp = tmp->right;
-		}
-		else {
-			return tmp;
 		}
 	}
 	return NULL;

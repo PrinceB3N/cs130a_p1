@@ -12,7 +12,8 @@ void fill_BST_HashTable(BST* bst, HashTable* table, string filename){
 	file.open(filename, ios::in);
 	if (file.is_open()) {   
 		string tmp;
-		while (getline(file, tmp)) { 
+		while (getline(file, tmp)) {
+			tmp.erase(tmp.find_last_not_of("\n\r") + 1);
 			bst->insert(tmp);
 			table->insert(tmp);
 		}
@@ -42,11 +43,29 @@ vector<string> split(const string& commands, char delimiter){
    	while (getline(tokenStream, token, delimiter)){
       		tokens.push_back(token);
    	}
-   	return tokens;
+   	return tokens; 
+}
+vector<string> tokenize(char* commands, string delimiter){
+	vector<string> tmp;
+	string str(commands);
+	int i=0;
+	int index = 0;
+	while(i<str.size()){
+		i=str.find(delimiter,index);
+		
+		if(i==string::npos){
+			tmp.push_back(str.substr(index));
+			return tmp;
+		}
+		tmp.push_back(str.substr(index,i-index));
+		index=i+delimiter.size();
+
+	}
+	return tmp;	
 }
 void handle_commands(BST* bst, HashTable* table, char* commands){
 	string str(commands);
-	vector<string> result=split(str, ',');
+	vector<string> result=tokenize(commands, ", ");
 	for(vector<string>::iterator i = result.begin(); i !=result.end();i++){
 		vector<string> tmp = split((*i),' ');
 		string op = tmp.at(0);
@@ -64,7 +83,9 @@ void handle_commands(BST* bst, HashTable* table, char* commands){
 int main(int argc, char** argv){
 	BST* bst = new BST();
 	HashTable* table = new HashTable(10000);
-	fill_BST_HashTable(bst, table, "PA1_dataset.txt");
+	//test
+	fill_BST_HashTable(bst, table, "./PA1_dataset.txt");
+	//cout<<bst->search("hellcat");
 	handle_commands(bst, table, argv[1]);
 	
 	return 0;
