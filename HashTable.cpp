@@ -1,15 +1,17 @@
 #include <string>
 #include <list> 
 #include <vector>
+#include <math.h>
 #include "HashTable.h"
-
+#include <limits.h>
+#include <iostream>
 using namespace std;
 Entry::Entry(string data) {
 	this->data = data;
 	this->count = 1;
 }
 
-HashTable::HashTable(int size) {
+HashTable::HashTable(unsigned int size) {
 	this->entries = new vector<list<Entry*>>(size);
 	this->size = size;
 	fill(this->entries->begin(), this->entries->end(), list<Entry*>(0));
@@ -26,7 +28,7 @@ HashTable::~HashTable() {
 	delete this->entries;
 }
 string HashTable::search(string word) {
-	int index = hash(word);
+	unsigned int index = hash(word);
 	for (list<Entry*>::iterator i = this->entries->at(index).begin();
 		i != this->entries->at(index).end(); i++) {
 		if ((*i)->data == word) {
@@ -36,7 +38,7 @@ string HashTable::search(string word) {
 	return word + " not found";
 }
 string HashTable::insert(string word) {
-	int index = hash(word);
+	unsigned int index = hash(word);
 	for (list<Entry*>::iterator i = this->entries->at(index).begin();
 		i != this->entries->at(index).end(); i++) {
 		if ((*i)->data == word) {
@@ -49,7 +51,7 @@ string HashTable::insert(string word) {
 	return word + " inserted, new count = " + to_string(tmp->count);
 }
 string HashTable::del(string word) {
-	int index = hash(word);
+	unsigned int index = hash(word);
 	for (list<Entry*>::iterator i = this->entries->at(index).begin();
 		i != this->entries->at(index).end(); i++) {
 		if ((*i)->data == word) {
@@ -82,13 +84,14 @@ string HashTable::range_search(string start, string end) {
 	delete append;
 	return data;
 }
-int HashTable::hash(string word) {
-	int sum=0;
-	int prime = 31;
+unsigned int HashTable::hash(string word) {
+	long sum=0;
+	int prime = 7;
 	for(int i=0;i<word.length();i++){
-		sum+=word[i];
+		sum+=(word[i]*pow(prime,i));
 	}
-	return (sum*prime) % this->size;
+	cout<<(((sum) % this->size) & UINT_MAX)<<endl<<endl;
+	return (((sum) % this->size) & UINT_MAX);
 }
 void HashTable::sorted_insert(list<string>* append, string word) {
 	for (list<string>::iterator a = append->begin(); a != append->end(); a++) {
