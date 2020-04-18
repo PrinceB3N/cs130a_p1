@@ -90,7 +90,6 @@ unsigned int HashTable::hash(string word) {
 	for(int i=0;i<word.length();i++){
 		sum+=(word[i]*pow(prime,i));
 	}
-	cout<<(((sum) % this->size) & UINT_MAX)<<endl<<endl;
 	return (((sum) % this->size) & UINT_MAX);
 }
 void HashTable::sorted_insert(list<string>* append, string word) {
