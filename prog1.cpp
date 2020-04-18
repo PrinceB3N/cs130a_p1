@@ -120,7 +120,7 @@ int main(int argc, char** argv){
 	BST* bst = new BST();
 	HashTable* table = new HashTable(104729);
 	//test
-	fill_BST_HashTable(bst, table, "PA1_dataset.txt");
+	fill_BST_HashTable(bst, table, "/autograder/submission/PA1_dataset.txt");
 	//cout<<bst->search("hellcat");
 	handle_commands(bst, table, argv[1]);
 	delete bst;
