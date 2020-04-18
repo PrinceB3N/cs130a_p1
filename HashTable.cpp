@@ -15,6 +15,14 @@ HashTable::HashTable(int size) {
 	fill(this->entries->begin(), this->entries->end(), list<Entry*>(0));
 }
 HashTable::~HashTable() {
+	for(vector<list<Entry*>>::iterator i = this->entries->begin(); i !=this->entries->end();i++){
+		for(list<Entry*>::iterator j = i->begin(); j != i->end(); j++){
+			Entry* e = *j;
+			delete e;
+		}
+		i->clear();
+	}
+	this->entries->clear();
 	delete this->entries;
 }
 string HashTable::search(string word) {
@@ -58,7 +66,7 @@ string HashTable::del(string word) {
 	return word + " not found";
 }
 string HashTable::range_search(string start, string end) {
-	list<string>* append;
+	list<string>* append = new list<string>(0);
 	for (vector<list<Entry*>>::iterator i = this->entries->begin();
 		i != this->entries->end(); i++) {
 		for (list<Entry*>::iterator l = i->begin(); l != i->end(); l++) {
@@ -78,20 +86,10 @@ int HashTable::hash(string word) {
 	return (31*(word.front() + word.back())) % size;
 }
 void HashTable::sorted_insert(list<string>* append, string word) {
-	if (append->empty()) {
-		append->push_front(word);
-		return;
-	}
 	for (list<string>::iterator a = append->begin(); a != append->end(); a++) {
 		if ((*a) > word) {
-			if (a == append->begin()) {
-				append->push_front(word);
-				return;
-			}
-			else {
-				append->insert(a, word);
-				return;
-			}
+			append->insert(a, word);
+			return;
 		}
 		else if ((*a) == word)	//same word, don't add
 			return;

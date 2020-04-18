@@ -21,7 +21,6 @@ BST::BST() {
 }
 BST::~BST() {
 	destructHelper(this->root);
-	root = NULL;
 }
 string BST::search(string word) {
 	Node* found = get(word);
@@ -134,7 +133,7 @@ string BST::range_searchHelper(Node* node, string start, string end) {
 	return data;
 }
 void BST::destructHelper(Node* to_del) {
-	if (to_del == nullptr)
+	if (to_del == NULL)
 		return;
 	destructHelper(to_del->left);
 	destructHelper(to_del->right);

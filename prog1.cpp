@@ -33,11 +33,11 @@ void op_delete(BST* bst, HashTable* table, string word){
 	cout<<table->del(word)<<endl;
 }
 void op_range_search(BST* bst, HashTable* table, string start, string end){
-	cout<<bst->range_search(start,end)<<endl;
+	cout<<bst->range_search(start,end);
 	
 	//NOT READY YET
-	//cout<<table->range_search(start,end)<<endl;
-	cout<<"placeholder"<<endl;
+	cout<<table->range_search(start,end);
+	//cout<<"placeholder"<<endl;
 }
 vector<string> split(const string& commands, char delimiter){
 	vector<string> tokens;
@@ -89,6 +89,7 @@ int main(int argc, char** argv){
 	fill_BST_HashTable(bst, table, "./PA1_dataset.txt");
 	//cout<<bst->search("hellcat");
 	handle_commands(bst, table, argv[1]);
-	
+	delete bst;
+	delete table;
 	return 0;
 }
