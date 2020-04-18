@@ -33,7 +33,7 @@ void op_delete(BST* bst, HashTable* table, string word){
 	cout<<table->del(word)<<endl;
 }
 void op_range_search(BST* bst, HashTable* table, string start, string end){
-	cout<<bst->range_search(start,end);
+	cout<<bst->range_search(start,end)<<flush;
 	cout<<table->range_search(start,end);
 	
 }
