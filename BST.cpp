@@ -86,17 +86,28 @@ string BST::del(string word) {
 	tmp->count = swp->count;
 
 	//delete swp
+	
 	if (swp->right!=NULL) {
 		swp->right->parent = swp->parent;
-		if (swp->parent->left == swp)
-			swp->parent->left = swp->right;
+
+		Node* tmpp = min(swp->right);
+		tmpp->left=swp->left;
+		if(swp->left!=NULL)
+			swp->left->parent=tmpp;
+
+                if(swp->parent==NULL)
+                        this->root=swp->right;
+                else if (swp->parent->left == swp)
+                        swp->parent->left = swp->right;
 		else
-			swp->parent->right = swp->right;
-		min(swp->right)->left = swp->left;
+                        swp->parent->right = swp->right;
+
 	}
 	else if (swp->left != NULL) {
 		swp->left->parent = swp->parent;
-		if (swp->parent->left == swp)
+		if(swp->parent==NULL)
+			this->root=swp->left;
+		else if (swp->parent->left == swp)
 			swp->parent->left = swp->left;
 		else
 			swp->parent->right = swp->left;
@@ -172,16 +183,18 @@ Node* BST::max(Node* node) {
 Node* BST::successor(Node* tmp) {
 	if (!tmp)
 		return NULL;
-	tmp = tmp->right;
+	Node* tmpr = tmp->right;
+	if(!tmpr)
+		return NULL;
 	Node* tmpUp = tmp->parent;
 
-	if (tmp) {
-		while (tmp->left) {
-			tmp = tmp->left;
+	if (tmpr) {
+		while (tmpr->left) {
+			tmpr = tmpr->left;
 		}
-		return tmp;
+		return tmpr;
 	}
-	else if (!tmp) {
+	else if (!tmpr) {
 		Node* prev = tmp;
 		while (tmpUp->left != prev) {
 			prev = tmpUp;
@@ -198,16 +211,18 @@ Node* BST::predecessor(Node* tmp) {
 	if (!tmp)
 		return NULL;
 
-	tmp = tmp->left;
+	Node* tmpl = tmp->left;
+	if(!tmpl)
+		return NULL;
 	Node* tmpUp = tmp->parent;
 
-	if (tmp) {
-		while (tmp->right) {
-			tmp = tmp->right;
+	if (tmpl) {
+		while (tmpl->right) {
+			tmpl = tmpl->right;
 		}
-		return tmp;
+		return tmpl;
 	}
-	else if (!tmp) {
+	else if (!tmpl) {
 		Node* prev = tmp;
 		while (tmpUp) {
 			if (tmpUp->right == prev)

@@ -34,10 +34,8 @@ void op_delete(BST* bst, HashTable* table, string word){
 }
 void op_range_search(BST* bst, HashTable* table, string start, string end){
 	cout<<bst->range_search(start,end);
-	
-	//NOT READY YET
 	cout<<table->range_search(start,end);
-	//cout<<"placeholder"<<endl;
+	
 }
 string substring(char* command, int index, int end){
 	string data="";
@@ -78,7 +76,7 @@ vector<string> tokenize(char* commands, string delimiter){
 		}
 		tmp.push_back(substring(commands, index, i-index));
 		index=i+delimiter.size();
-		i+=index;
+		i=index;
 
 	}
 	return tmp;	
@@ -106,6 +104,7 @@ void handle_commands(BST* bst, HashTable* table, char* commands){
 		vector<string> tmp = tokenize((*i)," ");
 		string op = tmp.at(0);
 		string word = tmp.at(1);
+		
 		if(op=="search")
 			op_search(bst,table, word);
 		else if(op=="insert")
@@ -120,7 +119,7 @@ int main(int argc, char** argv){
 	BST* bst = new BST();
 	HashTable* table = new HashTable(104729);
 	//test
-	fill_BST_HashTable(bst, table, "/autograder/submission/PA1_dataset.txt");
+	fill_BST_HashTable(bst, table, "PA1_dataset.txt");
 	//cout<<bst->search("hellcat");
 	handle_commands(bst, table, argv[1]);
 	delete bst;
