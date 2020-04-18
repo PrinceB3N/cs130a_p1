@@ -45,9 +45,8 @@ vector<string> split(const string& commands, char delimiter){
    	}
    	return tokens; 
 }
-vector<string> tokenize(char* commands, string delimiter){
+vector<string> tokenize(const string& str, string delimiter){
 	vector<string> tmp;
-	string str(commands);
 	int i=0;
 	int index = 0;
 	while(i<str.size()){
@@ -65,9 +64,9 @@ vector<string> tokenize(char* commands, string delimiter){
 }
 void handle_commands(BST* bst, HashTable* table, char* commands){
 	string str(commands);
-	vector<string> result=split(str, ',');
+	vector<string> result=tokenize(str, ", ");
 	for(vector<string>::iterator i = result.begin(); i !=result.end();i++){
-		vector<string> tmp = split(i->substr(1),' ');
+		vector<string> tmp = split((*i),' ');
 		string op = tmp.at(0);
 		string word = tmp.at(1);
 		if(op=="search")
