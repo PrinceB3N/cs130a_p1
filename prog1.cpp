@@ -39,15 +39,6 @@ void op_range_search(BST* bst, HashTable* table, string start, string end){
 	cout<<table->range_search(start,end);
 	//cout<<"placeholder"<<endl;
 }
-vector<string> split(const string& commands, char delimiter){
-	vector<string> tokens;
-  	string token;
-   	istringstream tokenStream(commands);
-   	while (getline(tokenStream, token, delimiter)){
-      		tokens.push_back(token);
-   	}
-   	return tokens; 
-}
 vector<string> tokenize(const string& str, string delimiter){
 	vector<string> tmp;
 	int i=0;
@@ -69,7 +60,7 @@ void handle_commands(BST* bst, HashTable* table, char* commands){
 	string str(commands);
 	vector<string> result=tokenize(str, ", ");
 	for(vector<string>::iterator i = result.begin(); i !=result.end();i++){
-		vector<string> tmp = split((*i),' ');
+		vector<string> tmp = tokenize((*i)," ");
 		string op = tmp.at(0);
 		string word = tmp.at(1);
 		if(op=="search")
@@ -84,7 +75,7 @@ void handle_commands(BST* bst, HashTable* table, char* commands){
 }
 int main(int argc, char** argv){
 	BST* bst = new BST();
-	HashTable* table = new HashTable(10000);
+	HashTable* table = new HashTable(104729);
 	//test
 	fill_BST_HashTable(bst, table, "./PA1_dataset.txt");
 	//cout<<bst->search("hellcat");

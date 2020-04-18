@@ -83,7 +83,12 @@ string HashTable::range_search(string start, string end) {
 	return data;
 }
 int HashTable::hash(string word) {
-	return (31*(word.front() + word.back())) % size;
+	int sum=0;
+	int prime = 31;
+	for(int i=0;i<word.length();i++){
+		sum+=word[i];
+	}
+	return (sum*prime) % this->size;
 }
 void HashTable::sorted_insert(list<string>* append, string word) {
 	for (list<string>::iterator a = append->begin(); a != append->end(); a++) {
