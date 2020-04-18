@@ -34,7 +34,10 @@ void op_delete(BST* bst, HashTable* table, string word){
 }
 void op_range_search(BST* bst, HashTable* table, string start, string end){
 	cout<<bst->range_search(start,end)<<endl;
-	cout<<table->range_search(start,end)<<endl;
+	
+	//NOT READY YET
+	//cout<<table->range_search(start,end)<<endl;
+	cout<<"placeholder"<<endl;
 }
 vector<string> split(const string& commands, char delimiter){
 	vector<string> tokens;
