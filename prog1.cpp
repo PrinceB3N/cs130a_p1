@@ -39,26 +39,69 @@ void op_range_search(BST* bst, HashTable* table, string start, string end){
 	cout<<table->range_search(start,end);
 	//cout<<"placeholder"<<endl;
 }
-vector<string> tokenize(const string& str, string delimiter){
+string substring(char* command, int index, int end){
+	string data="";
+	if(end<0){
+		for(int i=index;true;i++){
+			if(command[i]=='\0')
+				return data;
+			data+=command[i];
+		}
+	}
+	
+	for(int a=index;a<index+end;a++){
+		data+=command[a];
+	}
+	return data;
+}
+		
+
+vector<string> tokenize(char* commands, string delimiter){
 	vector<string> tmp;
 	int i=0;
 	int index = 0;
-	while(i<str.size()){
-		i=str.find(delimiter,index);
+	while(true){
+		for(int a=0;true;a++){
+			if(commands[i+a]=='\0'){
+				i=-1;
+				break;
+			}
+			else if(commands[i+a]==delimiter.at(0)){
+				i=i+a;
+				break;
+			}
+		}
 		
-		if(i==string::npos){
-			tmp.push_back(str.substr(index));
+		if(i==-1){
+			tmp.push_back(substring(commands, index, -1));
 			return tmp;
 		}
-		tmp.push_back(str.substr(index,i-index));
+		tmp.push_back(substring(commands, index, i-index));
+		index=i+delimiter.size();
+		i+=index;
+
+	}
+	return tmp;	
+}
+vector<string> tokenize(const string& commands, string delimiter){
+	vector<string> tmp;
+	int i=0;
+	int index = 0;
+	while(i<commands.size()){
+		i=commands.find(delimiter,index);
+		
+		if(i==string::npos){
+			tmp.push_back(commands.substr(index));
+			return tmp;
+		}
+		tmp.push_back(commands.substr(index,i-index));
 		index=i+delimiter.size();
 
 	}
 	return tmp;	
 }
 void handle_commands(BST* bst, HashTable* table, char* commands){
-	string str(commands);
-	vector<string> result=tokenize(str, ", ");
+	vector<string> result=tokenize(commands, ", ");
 	for(vector<string>::iterator i = result.begin(); i !=result.end();i++){
 		vector<string> tmp = tokenize((*i)," ");
 		string op = tmp.at(0);
