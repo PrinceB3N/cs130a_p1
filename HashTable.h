@@ -20,7 +20,7 @@ public:
 	std::string search(std::string word);
 	std::string insert(std::string word);
 	std::string del(std::string word);
-	std::list<std::string>* range_search(std::string start, std::string end);
+	std::string range_search(std::string start, std::string end);
 	int hash(std::string word);
 	void sorted_insert(std::list<std::string>* append, std::string word);
 };

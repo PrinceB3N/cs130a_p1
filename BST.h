@@ -22,6 +22,7 @@ public:
 	std::string insert(std::string word);
 	std::string del(std::string word);
 	std::string range_search(std::string start, std::string end);
+	std::string print_inorder();
 private:
 	std::string range_searchHelper(Node* node, std::string start, std::string end);
 	void destructHelper(Node* to_del);
@@ -30,5 +31,6 @@ private:
 	Node* max(Node* node);
 	Node* successor(Node* tmp);
 	Node* predecessor(Node* tmp);
+	std::string inorder_helper(Node* tmp);
 };
 #endif

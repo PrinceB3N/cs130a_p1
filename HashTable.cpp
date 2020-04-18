@@ -57,8 +57,8 @@ string HashTable::del(string word) {
 	}
 	return word + " not found";
 }
-list<string>* HashTable::range_search(string start, string end) {
-	list<string>* append = new list<string>(0);
+string HashTable::range_search(string start, string end) {
+	list<string>* append;
 	for (vector<list<Entry*>>::iterator i = this->entries->begin();
 		i != this->entries->end(); i++) {
 		for (list<Entry*>::iterator l = i->begin(); l != i->end(); l++) {
@@ -67,7 +67,12 @@ list<string>* HashTable::range_search(string start, string end) {
 			}
 		}
 	}
-	return append;
+	string data="";
+	for(list<string>::iterator a = append->begin();a!=append->end();a++){
+		data+=(*a)+"\n";
+	}
+	delete append;
+	return data;
 }
 int HashTable::hash(string word) {
 	return (31*(word.front() + word.back())) % size;

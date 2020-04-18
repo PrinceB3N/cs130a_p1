@@ -115,6 +115,9 @@ string BST::del(string word) {
 string BST::range_search(string start, string end) {
 	return range_searchHelper(this->root, start, end);
 }
+string BST::print_inorder(){
+	return inorder_helper(this->root);	
+}
 string BST::range_searchHelper(Node* node, string start, string end) {
 	if (node == NULL)
 		return "";
@@ -218,4 +221,13 @@ Node* BST::predecessor(Node* tmp) {
 	else {
 		return NULL;
 	}
+}
+string BST::inorder_helper(Node* tmp){
+	if(tmp==NULL)
+		return "";
+	string data="";
+	data+=inorder_helper(tmp->left);
+	data+=tmp->data+" ";
+	data+=inorder_helper(tmp->right);
+	return data;
 }
