@@ -65,9 +65,9 @@ vector<string> tokenize(char* commands, string delimiter){
 }
 void handle_commands(BST* bst, HashTable* table, char* commands){
 	string str(commands);
-	vector<string> result=tokenize(commands, ", ");
+	vector<string> result=split(str, ',');
 	for(vector<string>::iterator i = result.begin(); i !=result.end();i++){
-		vector<string> tmp = split((*i),' ');
+		vector<string> tmp = split(i->substr(1),' ');
 		string op = tmp.at(0);
 		string word = tmp.at(1);
 		if(op=="search")
