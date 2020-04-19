@@ -64,6 +64,7 @@ string BST::insert(string word) {
 }
 string BST::del(string word) {
 	Node* tmp = get(word);
+	Node* next;
 	if (tmp == NULL)
 		return "DNE";
 	//if count>1, dont delete from BST
@@ -71,56 +72,49 @@ string BST::del(string word) {
 		tmp->count--;
 		return word + " deleted, new count = " + to_string(tmp->count);
 	}
-	Node* swp = successor(tmp);
-	if (swp == NULL) {
-		swp = predecessor(tmp);
-	}
-	if (swp == NULL) {	//only root exists
-		delete this->root;
-		this->root = NULL;
-		return word + " deleted";
+	//delete tmp
+	while(true){	
+		if (tmp->left!=NULL && tmp->right!=NULL) {
+			next = successor(tmp);	//get successor
+			tmp->data=next->data;		//swap data
+			tmp->count = next->count;
+			tmp=next;		
+		}
+		else if (tmp->left != NULL) {
+			if(tmp->parent==NULL)
+				this->root=tmp->left;
+			else if (tmp->parent->left == tmp)
+				tmp->parent->left = tmp->left;
+			else
+				tmp->parent->right = tmp->left;
+			tmp->left->parent=tmp->parent;
+			delete tmp;
+			return word+" deleted";
+		}
+		else if (tmp->right != NULL){
+			if(tmp->parent==NULL)
+				this->root=tmp->right;
+			else if (tmp->parent->left == tmp)
+				tmp->parent->left = tmp->right;
+			else
+				tmp->parent->right = tmp->right;
 
-	}
-	//swap internal data
-	tmp->data = swp->data;
-	tmp->count = swp->count;
+			tmp->right->parent=tmp->parent;
+			delete tmp;
+			return word+" deleted";
+		}
+		else{
+			if(tmp->parent==NULL)
+				this->root=NULL;
+			else if(tmp->parent->left==tmp)
+				tmp->parent->left=NULL;
+			else
+				tmp->parent->right=NULL;
 
-	//delete swp
-	
-	if (swp->right!=NULL) {
-		swp->right->parent = swp->parent;
-
-		Node* tmpp = min(swp->right);
-		tmpp->left=swp->left;
-		if(swp->left!=NULL)
-			swp->left->parent=tmpp;
-
-                if(swp->parent==NULL)
-                        this->root=swp->right;
-                else if (swp->parent->left == swp)
-                        swp->parent->left = swp->right;
-		else
-                        swp->parent->right = swp->right;
-
+			delete tmp;
+			return word+" deleted";
+		}
 	}
-	else if (swp->left != NULL) {
-		swp->left->parent = swp->parent;
-		if(swp->parent==NULL)
-			this->root=swp->left;
-		else if (swp->parent->left == swp)
-			swp->parent->left = swp->left;
-		else
-			swp->parent->right = swp->left;
-	}
-	else {
-		if (swp->parent->left == swp)
-			swp->parent->left = NULL;
-		else
-			swp->parent->right = NULL;
-	}
-	//finish up
-	delete swp;
-	return word + " deleted";
 }
 string BST::range_search(string start, string end) {
 	return range_searchHelper(this->root, start, end);
