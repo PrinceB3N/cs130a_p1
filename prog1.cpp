@@ -33,7 +33,7 @@ void op_delete(BST* bst, HashTable* table, string word){
 	cout<<table->del(word)<<endl;
 }
 void op_range_search(BST* bst, HashTable* table, string start, string end){
-	cout<<bst->range_search(start,end);
+	cout<<bst->range_search(start,end)<<flush;
 	cout<<table->range_search(start,end);
 	
 }
@@ -119,7 +119,7 @@ int main(int argc, char** argv){
 	BST* bst = new BST();
 	HashTable* table = new HashTable(104729);
 	//test
-	fill_BST_HashTable(bst, table, "PA1_dataset.txt");
+	fill_BST_HashTable(bst, table, "/autograder/submission/PA1_dataset.txt");
 	//cout<<bst->search("hellcat");
 	handle_commands(bst, table, argv[1]);
 	delete bst;
